@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML5 Canvas</title>
+  <link rel="icon" href="https://fav.farm/🔥" />
+</head>
+<body>
+<canvas id="draw" width="800" height="800"></canvas>
+<script>
+  const canvas = document.querySelector('canvas#draw');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  let isDrawing = false;
+  let [currentX, currentY] = [0, 0];
+  const ORIGINAL_BRUSH_SIZE = 5;
+  let brushSize = ORIGINAL_BRUSH_SIZE;
+  let brushDirection = true;
+  let hueValue = 0;
+
+
+  function draw(event) {
+    if (isDrawing) {
+      ctx.beginPath();
+      ctx.moveTo(currentX, currentY);
+      ctx.lineTo(event.clientX, event.clientY);
+      ctx.stroke();
+      ctx.lineCap = 'round';
+      ctx.lineWidth = brushSize;
+      ctx.strokeStyle = `hsl(${hueValue}, 100%, 50%)`;
+
+      if (brushDirection) {
+        brushSize++;
+      } else {
+        brushSize--;
+      }
+
+      if (brushSize > 100 || brushSize < ORIGINAL_BRUSH_SIZE) {
+        brushDirection = !brushDirection;
+      }
+
+      hueValue = (hueValue + 1) % 360;
+    }
+
+    [currentX, currentY] = [event.clientX, event.clientY];
+  }
+
+  document.addEventListener('mousedown', (event) => {
+    isDrawing = true;
+    // [currentX, currentY] = [event.clientX, event.clientY];
+    console.log('mousedown');
+  });
+
+  document.addEventListener('mousemove', draw);
+
+  document.addEventListener('mouseup', () => {
+    isDrawing = false;
+  });
+
+  document.addEventListener('mouseout', () => {
+    isDrawing = false;
+  });
+</script>
+
+<style>
+  html, body {
+    margin: 0;
+  }
+</style>
+
+</body>
+</html>
