@@ -28,6 +28,7 @@
       ctx.lineTo(event.clientX, event.clientY);
       ctx.stroke();
       ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
       ctx.lineWidth = brushSize;
       ctx.strokeStyle = `hsl(${hueValue}, 100%, 50%)`;
 
@@ -47,21 +48,11 @@
     [currentX, currentY] = [event.clientX, event.clientY];
   }
 
-  document.addEventListener('mousedown', (event) => {
-    isDrawing = true;
-    // [currentX, currentY] = [event.clientX, event.clientY];
-    console.log('mousedown');
-  });
-
+  document.addEventListener('mousedown', (event) => isDrawing = true);
   document.addEventListener('mousemove', draw);
+  document.addEventListener('mouseup', () => isDrawing = false);
+  document.addEventListener('mouseout', () => isDrawing = false);
 
-  document.addEventListener('mouseup', () => {
-    isDrawing = false;
-  });
-
-  document.addEventListener('mouseout', () => {
-    isDrawing = false;
-  });
 </script>
 
 <style>
