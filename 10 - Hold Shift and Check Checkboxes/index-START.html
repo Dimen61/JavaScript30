@@ -97,6 +97,39 @@
   </div>
 
 <script>
+  let onShift = false;
+  let shiftBeginIndex = -1;
+  let shiftEndIndex = -1;
+
+  const checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]');
+  checkboxes.forEach(checkbox => checkbox.addEventListener('click', handleCheck));
+
+  document.addEventListener('keydown', () => {
+    if ( !onShift && event.key === 'Shift') {
+      onShift = true;
+      shiftBeginIndex = shiftEndIndex = -1;
+    }
+  });
+  document.addEventListener('keyup', () => {
+    onShift = false;
+  });
+
+  function handleCheck() {
+    const checkbox = event.target;
+    const currentIndex = Array.from(checkboxes).indexOf(checkbox);
+
+    if (onShift) {
+      if (shiftBeginIndex === -1) {
+        shiftBeginIndex  = shiftEndIndex= currentIndex;
+      } else {
+        for (let index = Math.min(shiftBeginIndex, currentIndex); index <= Math.max(shiftBeginIndex, currentIndex); index++) {
+          checkboxes[index].checked = true;
+        }
+      } 
+    } 
+  }
+
+
 </script>
 </body>
 </html>
