@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Key Detection</title>
+    <script type="text/javascript" src="./cornify.js"></script>
+    <link rel="icon" href="https://fav.farm/🔥" />
+  </head>
+  <body>
+    <script>
+      const targetCode = "dimen";
+      let remainedKeys = "";
+      document.addEventListener('keyup', (event) => {
+        const key = event.key;
+        console.log(`Key: ${key}`);
+
+        remainedKeys += key;
+        if (remainedKeys.length > targetCode.length) {
+          remainedKeys = remainedKeys.substring(1);
+          console.log('cut!');
+        }
+
+        if (remainedKeys === targetCode) {
+          cornify_add();
+          console.log('Bingo!');
+        }
+
+        console.log(`Keys: ${remainedKeys}`);
+      });
+    </script>
+  </body>
+</html>
