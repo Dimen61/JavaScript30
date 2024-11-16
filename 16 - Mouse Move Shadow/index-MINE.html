@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mouse Shadow</title>
+  <link rel="icon" href="https://fav.farm/🔥" />
+</head>
+<body>
+
+  <div class="hero">
+    <h1 contenteditable>🔥WOAH!</h1>
+  </div>
+
+  <style>
+  html {
+    color: black;
+    font-family: sans-serif;
+  }
+
+  body {
+    margin: 0;
+  }
+
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+  }
+
+  h1 {
+    text-shadow: 10px 10px 0 rgba(0,0,0,1);
+    font-size: 100px;
+  }
+  </style>
+
+<script>
+  const hero = document.querySelector('.hero');
+  const text = hero.querySelector('h1');
+  const SHADOW_WIDTH = 500;
+
+  hero.addEventListener('mousemove', (event) => {
+    const { offsetWidth: width, offsetHeight: height } = hero;
+    let { offsetX: x, offsetY: y } = event;
+    console.log(`x: ${x}, y: ${y}`);
+    console.log(`width: ${width}, height: ${height}`);
+
+    // In case the mouse hovers on the text
+    if (this != event.target) {
+      x += event.target.offsetLeft;
+      y += event.target.offsetTop;
+    }
+
+    const shadowX = Math.round((x / width * SHADOW_WIDTH) - (SHADOW_WIDTH / 2));
+    const shadowY = Math.round((y / height * SHADOW_WIDTH) - (SHADOW_WIDTH / 2));
+    text.style.textShadow = `
+    ${shadowX}px ${shadowY}px 0 rgba(255,0,255,0.7),
+    ${shadowX * -1}px ${shadowY}px 0 rgba(0,255,255,0.7),
+    ${shadowY}px ${shadowX * -1}px 0 rgba(0,255,0,0.7),
+    ${shadowY * -1}px ${shadowX}px 0 rgba(0,0,255,0.7)
+    `;
+  });
+</script>
+</body>
+</html>
