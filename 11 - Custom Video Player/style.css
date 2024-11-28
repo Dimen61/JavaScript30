@@ -82,6 +82,10 @@ body {
   height: 15px;
 }
 
+.player .progress {
+  height: 15px;
+}
+
 .player__controls > * {
   flex: 1;
 }
